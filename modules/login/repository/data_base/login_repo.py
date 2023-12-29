@@ -1,7 +1,7 @@
 from infra.db.db_config import DBConnectionHandler
 from modules.login.repository.data_base.interface import LoginRepositoryInterface
 from modules.login.repository.data_base.model import Login
-from modules.login.dto import LoginDTO
+from modules.login.entity import LoginEntity
 from datetime import datetime
 import uuid as uuid
 
@@ -9,7 +9,7 @@ import uuid as uuid
 class LoginRepository(LoginRepositoryInterface):
 
     def _criar_login_objeto(self, login):
-        return LoginDTO(
+        return LoginEntity(
             id=login.id,
             # uuid=login.uuid,
             username=login.username,
