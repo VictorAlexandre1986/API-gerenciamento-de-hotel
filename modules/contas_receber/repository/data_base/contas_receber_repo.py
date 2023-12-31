@@ -23,7 +23,7 @@ class ContasReceberRepository(ContasReceberRepositoryInterface):
                 novo_contas_receber = ContasReceber(id=id, cliente=cliente, vencimento=vencimento, valor=valor, status=status)
                 db_connection.session.add(novo_contas_receber)
                 db_connection.session.commit()
-                return self._criar_receber_objeto(novo_contas_receber)
+                return self._criar_contas_receber_objeto(novo_contas_receber)
         except Exception as exc:
             raise exc
 

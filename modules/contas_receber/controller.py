@@ -24,7 +24,7 @@ class ContasReceberController:
     def buscar_contas_receber():
         repository = ContasReceberRepository()
         result = ContasReceberUseCase(repository).buscar_contas_receber()
-        result = [login.dict() for login in result]
+        result = [conta.dict() for conta in result]
         return result
     
     @staticmethod

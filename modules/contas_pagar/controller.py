@@ -35,7 +35,7 @@ class ContasPagarController:
     def buscar_contas_pagar():
         repository = ContasPagarRepository()
         result = ContasPagarUseCase(repository).buscar_contas_pagar()
-        result = [login.dict() for login in result]
+        result = [conta.dict() for conta in result]
         return result
     
     @staticmethod
