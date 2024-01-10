@@ -10,7 +10,7 @@ class ProdutoController:
     def criar_produto(data: dict):
         data_dto = ProdutoDTO(**data)
         repository = ProdutoRepository()
-        result = ProdutoUseCase(repository).criar_produto(id = data_dto.id, nome = data_dto.nome, categoria = data_dto.categoria, preco_custo = data_dto.preco_custo, preco_venda= data_dto.preco_venda, fornecedor= data_dto.fornecedor, data_validade = data_dto.data_validade)
+        result = ProdutoUseCase(repository).criar_produto(id = data_dto.id, nome = data_dto.nome, categoria = data_dto.categoria, preco_custo = data_dto.preco_custo, preco_venda= data_dto.preco_venda, id_fornecedor= data_dto.id_fornecedor, data_validade = data_dto.data_validade)
         return result
     
     @staticmethod
@@ -30,7 +30,7 @@ class ProdutoController:
     def atualizar_produto(data: dict, id: int):
         data_dto = ProdutoDTO(**data)
         repository = ProdutoRepository()
-        result = ProdutoUseCase(repository).atualizar_produto(id=id, nome = data_dto.nome, categoria = data_dto.categoria, preco_custo = data_dto.preco_custo, preco_venda= data_dto.preco_venda, fornecedor= data_dto.fornecedor, data_validade = data_dto.data_validade)
+        result = ProdutoUseCase(repository).atualizar_produto(id=id, nome = data_dto.nome, categoria = data_dto.categoria, preco_custo = data_dto.preco_custo, preco_venda= data_dto.preco_venda, id_fornecedor= data_dto.id_fornecedor, data_validade = data_dto.data_validade)
         return result
     
     @staticmethod

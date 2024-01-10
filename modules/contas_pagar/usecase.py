@@ -6,8 +6,9 @@ class ContasPagarUseCase:
         self.contas_pagar_repository = contas_pagar_repository
         
     
-    def criar_contas_pagar(self, fornecedor:str, servico: str, produto: str, valor: float, status:str):
-        return self.contas_pagar_repository.criar_contas_pagar(id,fornecedor, servico,produto,valor, status)
+    def criar_contas_pagar(self, fornecedor:str, servico: str, id_produto: int, valor: float, status:str, data:str):
+        #converter a string data para datetime
+        return self.contas_pagar_repository.criar_contas_pagar(id,fornecedor, servico,id_produto,valor, status, data)
     
     def buscar_contas_pagar_por_mes(self, mes: str):
         # converter a string mes por datetime
@@ -25,5 +26,6 @@ class ContasPagarUseCase:
     def deletar_contas_pagar(self, id: int):
         return self.contas_pagar_repository.deletar_contas_pagar(id)
     
-    def atualizar_contas_pagar(self, id:int, fornecedor: str, servico:str, produto:str, valor:float, status:str):
-        return self.contas_pagar_repository.atualizar_contas_pagar(id, fornecedor, servico, produto, valor, status)
+    def atualizar_contas_pagar(self, id:int, fornecedor: str, servico:str, id_produto:int, valor:float, status:str, data:str):
+        #converter data para datetime
+        return self.contas_pagar_repository.atualizar_contas_pagar(id, fornecedor, servico, id_produto, valor, status,data)

@@ -8,9 +8,8 @@ class ContasReceber(Base):
     __tablename__ = "tb_contas_receber"
     
     cliente = Column(String, nullable=False)
-    vencimento = Column(DateTime, nullable=False)
     valor = Column(Float, nullable=False)
     status = Column(String, nullable=False)
     id_produto = Column(Integer, ForeignKey('tb_funcionario.id'))
-    funcionario = relationship(Produto, back_populates='tb_contas_receber')
+    id_reserva = Column(Integer, ForeignKey('tb_reserva.id'))
     

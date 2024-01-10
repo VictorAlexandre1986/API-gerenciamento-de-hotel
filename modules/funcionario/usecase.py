@@ -6,9 +6,9 @@ class FuncionarioUseCase:
         self.funcionario_repository = funcionario_repository
         
     
-    def criar_funcionario(self, nome:str, cpf: str,  endereco: str, bairro:str, cidade:str, contato:str, data_nascimento:str):
+    def criar_funcionario(self, nome:str, cpf: str,  endereco: str, bairro:str, cidade:str, contato:str, data_nascimento:str, id_cargo:int):
         # converter a dt_nasc para datetime
-        return self.funcionario_repository.criar_funcionario(id, nome, cpf,endereco, bairro,cidade,contato,data_nascimento)
+        return self.funcionario_repository.criar_funcionario(id, nome, cpf,endereco, bairro,cidade,contato,data_nascimento, id_cargo)
     
     def buscar_funcionario(self):
         return self.funcionario_repository.buscar_funcionario()
@@ -19,5 +19,5 @@ class FuncionarioUseCase:
     def deletar_funcionario(self, id: int):
         return self.funcionario_repository.deletar_funcionario(id)
     
-    def atualizar_funcionario(self, id:int, nome: str, cpf:str, endereco:str, bairro:str, cidade:str, contato:str, data_nascimento:str):
-        return self.funcionario_repository.atualizar_funcionario(id, nome, cpf, endereco, bairro, cidade, contato, data_nascimento)
+    def atualizar_funcionario(self, id:int, nome: str, cpf:str, endereco:str, bairro:str, cidade:str, contato:str, data_nascimento:str, id_cargo:int):
+        return self.funcionario_repository.atualizar_funcionario(id, nome, cpf, endereco, bairro, cidade, contato, data_nascimento,id_cargo)

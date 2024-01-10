@@ -6,9 +6,9 @@ class ProdutoUseCase:
         self.produto_repository = produto_repository
         
     
-    def criar_produto(self, nome:str, categoria: int,  valor_custo: float, valor_venda:float, fornecedor:str, data_validade:str):
+    def criar_produto(self, nome:str, categoria: int,  valor_custo: float, valor_venda:float, id_fornecedor:int, data_validade:str):
         # converter a dt_nasc para datetime
-        return self.funcionario_repository.criar_funcionario(id, nome, categoria,valor_custo, valor_venda,fornecedor,data_validade)
+        return self.funcionario_repository.criar_funcionario(id, nome, categoria,valor_custo, valor_venda,id_fornecedor,data_validade)
     
     def buscar_funcionario(self):
         return self.funcionario_repository.buscar_funcionario()
@@ -19,5 +19,5 @@ class ProdutoUseCase:
     def deletar_funcionario(self, id: int):
         return self.funcionario_repository.deletar_funcionario(id)
     
-    def atualizar_funcionario(self, id:int, nome:str, categoria: int,  valor_custo: float, valor_venda:float, fornecedor:str, data_validade:str):
-        return self.funcionario_repository.atualizar_funcionario(id, nome, categoria,valor_custo, valor_venda,fornecedor,data_validade)
+    def atualizar_funcionario(self, id:int, nome:str, categoria: int,  valor_custo: float, valor_venda:float, id_fornecedor:int, data_validade:str):
+        return self.funcionario_repository.atualizar_funcionario(id, nome, categoria,valor_custo, valor_venda,id_fornecedor,data_validade)

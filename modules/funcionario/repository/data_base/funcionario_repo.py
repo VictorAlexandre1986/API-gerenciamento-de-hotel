@@ -17,13 +17,14 @@ class FuncionarioRepository(FuncionarioRepositoryInterface):
             bairro = funcionario.bairro,
             cidade = funcionario.cidade,
             contato = funcionario.contato,
-            data_nascimento=funcionario.data_nascimento
+            data_nascimento=funcionario.data_nascimento,
+            id_cargo = funcionario.id_cargo
         )
 
-    def criar_funcionario(self, id: int, nome: str, cpf:str, endereco:str, bairro:str, cidade:str, contato:str, data_nascimento:datetime):
+    def criar_funcionario(self, id: int, nome: str, cpf:str, endereco:str, bairro:str, cidade:str, contato:str, data_nascimento:datetime, id_cargo: int):
         try:
             with DBConnectionHandler() as db_connection:
-                novo_funcionario = Funcionario(id=id, nome=nome, cpf=cpf, endereco=endereco, bairro=bairro, cidade=cidade, contato=contato, data_nascimento=data_nascimento)
+                novo_funcionario = Funcionario(id=id, nome=nome, cpf=cpf, endereco=endereco, bairro=bairro, cidade=cidade, contato=contato, data_nascimento=data_nascimento, id_cargo=id_cargo)
                 db_connection.session.add(novo_funcionario)
                 db_connection.session.commit()
                 return self._criar_funcionario_objeto(novo_funcionario)
@@ -47,7 +48,7 @@ class FuncionarioRepository(FuncionarioRepositoryInterface):
                 )
             return list_funcionarios
         
-    def atualizar_funcionario(self, id: int, nome: str, cpf:str, endereco:str, bairro:str, cidade:str, contato:str, data_nascimento:datetime):
+    def atualizar_funcionario(self, id: int, nome: str, cpf:str, endereco:str, bairro:str, cidade:str, contato:str, data_nascimento:datetime, id_cargo:int):
         with DBConnectionHandler() as db_connection:
             data = db_connection.session.query(Funcionario).filter(Funcionario.id == id).one_or_none()
             if data:
@@ -59,6 +60,7 @@ class FuncionarioRepository(FuncionarioRepositoryInterface):
                 data.cidade = cidade
                 data.contato = contato
                 data.data_nascimento = data_nascimento
+                data.id_cargo = id_cargo
                 db_connection.session.commit()
                 return self._criar_funcionario_objeto(data)
             return None

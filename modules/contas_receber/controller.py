@@ -10,7 +10,7 @@ class ContasReceberController:
     def criar_contas_receber(data: dict):
         data_dto = ContasReceberDTO(**data)
         repository = ContasReceberRepository()
-        result = ContasReceberUseCase(repository).criar_contas_receber(id = data_dto.id, cliente= data_dto.cliente, valor = data_dto.valor, vencimento = data_dto.vencimento,  status=data_dto.status)
+        result = ContasReceberUseCase(repository).criar_contas_receber(id = data_dto.id, cliente= data_dto.cliente, valor = data_dto.valor,  status=data_dto.status, id_produto=data_dto.id_produto, id_reserva=data_dto.id_reserva)
         return result
     
     @staticmethod
@@ -31,7 +31,7 @@ class ContasReceberController:
     def atualizar_contas_receber(data: dict, id: int):
         data_dto = ContasReceberDTO(**data)
         repository = ContasReceberRepository()
-        result = ContasReceberUseCase(repository).atualizar_contas_receber(id = id, cliente= data_dto.cliente, valor = data_dto.valor, vencimento = data_dto.vencimento,  status=data_dto.status)
+        result = ContasReceberUseCase(repository).atualizar_contas_receber(id = id, cliente= data_dto.cliente, valor = data_dto.valor,   status=data_dto.status , id_produto=data_dto.id_produto, id_reserva=data_dto.id_reserva)
         return result
     
     @staticmethod

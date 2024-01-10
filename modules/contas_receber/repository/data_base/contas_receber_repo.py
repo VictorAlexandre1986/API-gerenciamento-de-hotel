@@ -13,14 +13,14 @@ class ContasReceberRepository(ContasReceberRepositoryInterface):
             id=contas_receber.id,
             cliente=contas_receber.cliente,
             valor=contas_receber.valor,
-            vencimento= contas_receber.vencimento,
+            id_reserva = contas_receber.id_reserva,
             status = contas_receber.status
         )
 
-    def criar_contas_receber(self, id: int, cliente: str, vencimento:datetime, valor:float, status:str):
+    def criar_contas_receber(self, id: int, cliente: str, id_reserva:int, valor:float, status:str):
         try:
             with DBConnectionHandler() as db_connection:
-                novo_contas_receber = ContasReceber(id=id, cliente=cliente, vencimento=vencimento, valor=valor, status=status)
+                novo_contas_receber = ContasReceber(id=id, cliente=cliente, id_reserva=id_reserva, valor=valor, status=status)
                 db_connection.session.add(novo_contas_receber)
                 db_connection.session.commit()
                 return self._criar_contas_receber_objeto(novo_contas_receber)
@@ -44,13 +44,13 @@ class ContasReceberRepository(ContasReceberRepositoryInterface):
                 )
             return list_contas_receber
         
-    def atualizar_contas_receber(self, id: int, cliente: str, vencimento: datetime, valor: float, status:str):
+    def atualizar_contas_receber(self, id: int, cliente: str, id_reserva: int, valor: float, status:str):
         with DBConnectionHandler() as db_connection:
             data = db_connection.session.query(ContasReceber).filter(ContasReceber.id == id).one_or_none()
             if data:
                 data.id = id
                 data.cliente = cliente
-                data.vencimento = vencimento
+                data.id_reserva = id_reserva
                 data.valor = valor
                 data.status = status
                 db_connection.session.commit()

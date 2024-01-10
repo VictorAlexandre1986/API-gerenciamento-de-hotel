@@ -10,3 +10,4 @@ class FuncionarioDTO(BaseModel):
     cidade: str = Field(...,min_length=5)
     contato:str = Field(...,min_length=10,max_length=11)
     data_nascimento:datetime 
+    id_cargo:int

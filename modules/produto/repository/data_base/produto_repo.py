@@ -16,15 +16,15 @@ class ProdutoRepository(ProdutoRepositoryInterface):
             categoria=produto.categoria,
             preco_custo=produto.preco_custo,
             preco_venda = produto.preco_venda,
-            fornecedor = produto.fornecedor,
+            id_fornecedor = produto.id_fornecedor,
             data_validade = produto.data_validade
             
         )
 
-    def criar_produto(self, id: int, nome: str, categoria:str, preco_custo: float, preco_venda: float, fornecedor:str, data_validade:datetime):
+    def criar_produto(self, id: int, nome: str, categoria:str, preco_custo: float, preco_venda: float, id_fornecedor:int, data_validade:datetime):
         try:
             with DBConnectionHandler() as db_connection:
-                novo_produto = Produto(id=id, nome=nome, categoria=categoria, preco_custo=preco_custo, preco_venda=preco_venda, fornecedor=fornecedor, data_validade=data_validade)
+                novo_produto = Produto(id=id, nome=nome, categoria=categoria, preco_custo=preco_custo, preco_venda=preco_venda, id_fornecedor=id_fornecedor, data_validade=data_validade)
                 db_connection.session.add(novo_produto)
                 db_connection.session.commit()
                 return self._criar_produto_objeto(novo_produto)
@@ -48,7 +48,7 @@ class ProdutoRepository(ProdutoRepositoryInterface):
                 )
             return list_produtos
         
-    def atualizar_produto(self, id: int,nome: str, categoria:str, preco_custo: float, preco_venda: float, fornecedor:str, data_validade:datetime):
+    def atualizar_produto(self, id: int,nome: str, categoria:str, preco_custo: float, preco_venda: float, id_fornecedor:int, data_validade:datetime):
         with DBConnectionHandler() as db_connection:
             data = db_connection.session.query(Produto).filter(Produto.id == id).one_or_none()
             if data:
@@ -57,7 +57,7 @@ class ProdutoRepository(ProdutoRepositoryInterface):
                 data.categoria = categoria
                 data.preco_custo = preco_custo
                 data.preco_venda = preco_venda
-                data.fornecedor = fornecedor
+                data.id_fornecedor = id_fornecedor
                 data.data_validade = data_validade
                 db_connection.session.commit()
                 return self._criar_produto_objeto(data)

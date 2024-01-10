@@ -10,7 +10,7 @@ class ContasPagarController:
     def criar_contas_pagar(data: dict):
         data_dto = ContasPagarDTO(**data)
         repository = ContasPagarRepository()
-        result = ContasPagarUseCase(repository).criar_contas_pagar(id = data_dto.id, fornecedor= data_dto.fornecedor, servico = data_dto.servico, produto = data_dto.produto, valor = data_dto.valor, status=data_dto.status)
+        result = ContasPagarUseCase(repository).criar_contas_pagar(id = data_dto.id, fornecedor= data_dto.fornecedor, servico = data_dto.servico, id_produto = data_dto.id_produto, valor = data_dto.valor, status=data_dto.status, data = data_dto.data)
         return result
     
     @staticmethod
@@ -42,7 +42,7 @@ class ContasPagarController:
     def atualizar_contas_pagar(data: dict, id: int):
         data_dto = ContasPagarDTO(**data)
         repository = ContasPagarRepository()
-        result = ContasPagarUseCase(repository).atualizar_contas_pagar(id = id, fornecedor= data_dto.fornecedor, servico = data_dto.servico, produto = data_dto.produto, valor = data_dto.valor, status= data_dto.status)
+        result = ContasPagarUseCase(repository).atualizar_contas_pagar(id = id, fornecedor= data_dto.fornecedor, servico = data_dto.servico, produto = data_dto.produto, valor = data_dto.valor, status= data_dto.status, data= data_dto.data)
         return result
     
     @staticmethod

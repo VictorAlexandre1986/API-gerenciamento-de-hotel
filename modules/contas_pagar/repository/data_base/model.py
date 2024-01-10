@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Float, String, Integer, ForeignKey
+from sqlalchemy import Column, Float, String, Integer, ForeignKey, DateTime
 from modules.produto.repository.data_base.model import Produto
 from sqlalchemy.orm import relationship
 
@@ -13,5 +13,5 @@ class ContasPagar(Base):
     valor = Column(Float, nullable=False)
     status = Column(String, nullable=False)
     id_produto = Column(Integer, ForeignKey('tb_produto.id'))
-    produto = relationship(Produto, back_populates='tb_contas_pagar')
+    data = Column(DateTime, nullable=False)
     

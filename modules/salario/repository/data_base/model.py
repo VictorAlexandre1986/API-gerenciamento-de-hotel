@@ -15,4 +15,3 @@ class Salario(Base):
     auxilio_medico = Column(Float, nullable=False)
     auxilio_medico_status = Column(Boolean, nullable=False)
     id_funcionario = Column(Integer, ForeignKey('tb_funcionario.id'))
-    funcionario = relationship(Funcionario, back_populates='tb_salario')
