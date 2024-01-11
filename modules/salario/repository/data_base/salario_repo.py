@@ -28,7 +28,7 @@ class SalarioRepository(SalarioRepositoryInterface):
                 novo_salario = Salario(id=id, id_funcionario=id_funcionario, salario=salario, salario_status=salario_status, vale_refeicao=vale_refeicao, vale_refeicao_status=vale_refeicao_status, auxilio_medico=auxilio_medico, auxilio_medico_status=auxilio_medico_status)
                 db_connection.session.add(novo_salario)
                 db_connection.session.commit()
-                return self._criar_produto_objeto(novo_salario)
+                return self._criar_salario_objeto(novo_salario)
         except Exception as exc:
             raise exc
 
@@ -62,7 +62,7 @@ class SalarioRepository(SalarioRepositoryInterface):
                 data.auxilio_medico = auxilio_medico
                 data.auxilio_medico_status=auxilio_medico_status
                 db_connection.session.commit()
-                return self._criar_produto_objeto(data)
+                return self._criar_salario_objeto(data)
             return None
 
     def deletar_salario(self, id: int):
