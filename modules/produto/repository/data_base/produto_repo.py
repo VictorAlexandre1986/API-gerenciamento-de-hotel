@@ -31,12 +31,15 @@ class ProdutoRepository(ProdutoRepositoryInterface):
         except Exception as exc:
             raise exc
 
-    def buscar_produto_por_id(self, id: int):
+    def buscar_produto_por_nome(self, nome: str):
         with DBConnectionHandler() as db_connection:
-            data = db_connection.session.query(Produto).filter(Produto.id == id).one_or_none()
-            data_resultado = self._criar_produto_objeto(data)
-            if data_resultado is not None:
-                return data_resultado
+            list_produtos=[]
+            produtos = db_connection.session.query(Produto).filter(Produto.nome == nome).all()
+            for produto in produtos:
+                list_produtos.append(
+                    self._criar_produto_objeto(produto)
+                )
+            return list_produtos
 
     def buscar_produtos(self):
         with DBConnectionHandler() as db_connection:

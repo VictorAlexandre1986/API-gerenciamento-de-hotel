@@ -27,7 +27,7 @@ class FornecedorRepository(FornecedorRepositoryInterface):
             raise exc
 
 
-    def buscar_contas_pagar_por_fornecedor(self, fornecedor: str):
+    def buscar_fornecedor_por_nome(self, fornecedor: str):
         with DBConnectionHandler() as db_connection:
             fornecedor = db_connection.session.query(Fornecedor).filter(Fornecedor.fornecedor == fornecedor).one_or_none()
             data_resultado = self._criar_fornecedor_objeto(fornecedor)

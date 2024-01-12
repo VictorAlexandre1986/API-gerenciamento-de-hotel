@@ -19,27 +19,30 @@ class ContasPagarRepository(ContasPagarRepositoryInterface):
             data = contas_pagar.data
         )
 
-    def criar_contas_pagar(self, id: int, fornecedor: str, servico:str, produto:str, valor:float, status:str, data:datetime):
+    def criar_contas_pagar(self, id: int, fornecedor: str, servico:str, id_produto:int, valor:float, status:str, data:datetime):
         try:
             with DBConnectionHandler() as db_connection:
-                novo_contas_pagar = ContasPagar(id=id, fornecedor=fornecedor, servico=servico, produto=produto, valor=valor, status=status, data=data)
+                novo_contas_pagar = ContasPagar(id=id, fornecedor=fornecedor, servico=servico, id_produto=id_produto, valor=valor, status=status, data=data)
                 db_connection.session.add(novo_contas_pagar)
                 db_connection.session.commit()
                 return self._criar_pagar_objeto(novo_contas_pagar)
         except Exception as exc:
             raise exc
 
-    def buscar_contas_pagar_por_mes(self, mes: datetime):
+    def buscar_contas_pagar_por_mes(self, inicio_mes: datetime, fim_mes: datetime):
         with DBConnectionHandler() as db_connection:
-            data = db_connection.session.query(ContasPagar).filter(ContasPagar.mes == mes).one_or_none()
-            data_resultado = self._criar_contas_pagar_objeto(data)
-            if data_resultado is not None:
-                return data_resultado
-
+            list_contas_pagar=[]
+            contas_pagar = db_connection.session.query(ContasPagar).filter(ContasPagar.mes.between(inicio_mes,fim_mes)).all()
+            for conta_pagar in contas_pagar:
+                list_contas_pagar.append(
+                    self._criar_contas_pagar_objeto(conta_pagar)
+                )
+            return list_contas_pagar
+            
     def buscar_contas_pagar_por_fornecedor(self, fornecedor: str):
         with DBConnectionHandler() as db_connection:
             list_contas_pagar=[]
-            contas_pagar = db_connection.session.query(ContasPagar).filter(ContasPagar.fornecedor == fornecedor).one_or_none()
+            contas_pagar = db_connection.session.query(ContasPagar).filter(ContasPagar.fornecedor == fornecedor).all()
             for conta_pagar in contas_pagar:
                 list_contas_pagar.append(
                     self._criar_contas_pagar_objeto(conta_pagar)
@@ -49,7 +52,7 @@ class ContasPagarRepository(ContasPagarRepositoryInterface):
     def buscar_contas_pagar_por_produto(self, produto: str):
         with DBConnectionHandler() as db_connection:
             list_contas_pagar = []
-            contas_pagar = db_connection.session.query(ContasPagar).filter(ContasPagar.produto == produto).one_or_none()
+            contas_pagar = db_connection.session.query(ContasPagar).filter(ContasPagar.produto == produto).all()
             for conta_pagar in contas_pagar:
                 list_contas_pagar.append(
                     self._criar_contas_pagar_objeto(conta_pagar)
@@ -59,7 +62,7 @@ class ContasPagarRepository(ContasPagarRepositoryInterface):
     def buscar_contas_pagar_por_servico(self, servico: str):
         with DBConnectionHandler() as db_connection:
             list_contas_pagar = []
-            contas_pagar = db_connection.session.query(ContasPagar).filter(ContasPagar.servico == servico).one_or_none()
+            contas_pagar = db_connection.session.query(ContasPagar).filter(ContasPagar.servico == servico).all()
             for conta_pagar in contas_pagar:
                 list_contas_pagar.append(
                     self._criar_contas_pagar_objeto(conta_pagar)
@@ -76,14 +79,14 @@ class ContasPagarRepository(ContasPagarRepositoryInterface):
                 )
             return list_contas_pagar
         
-    def atualizar_contas_pagar(self, id: int, fornecedor: str, servico: str, produto: str, valor: float, status:str, data: datetime):
+    def atualizar_contas_pagar(self, id: int, fornecedor: str, servico: str, id_produto: int, valor: float, status:str, data: datetime):
         with DBConnectionHandler() as db_connection:
             data = db_connection.session.query(ContasPagar).filter(ContasPagar.id == id).one_or_none()
             if data:
                 data.id = id
                 data.fornecedor = fornecedor
                 data.servico = servico
-                data.produto = produto
+                data.id_produto = id_produto
                 data.valor = valor
                 data.status = status
                 data.data = data

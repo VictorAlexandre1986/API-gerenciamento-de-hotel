@@ -10,8 +10,8 @@ class FuncionarioUseCase:
         # converter a dt_nasc para datetime
         return self.funcionario_repository.criar_funcionario(id, nome, cpf,endereco, bairro,cidade,contato,data_nascimento, id_cargo)
     
-    def buscar_funcionario(self):
-        return self.funcionario_repository.buscar_funcionario()
+    def buscar_funcionarios(self):
+        return self.funcionario_repository.buscar_funcionarios()
     
     def buscar_funcionario_por_nome(self, nome:str):
         return self.funcionario_repository.buscar_funcionario_por_nome(nome)

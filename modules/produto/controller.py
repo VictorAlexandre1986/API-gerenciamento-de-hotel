@@ -14,9 +14,9 @@ class ProdutoController:
         return result
     
     @staticmethod
-    def buscar_produto_por_id(id: int):
+    def buscar_produto_por_nome(nome: str):
         repository = ProdutoRepository()
-        result = ProdutoUseCase(repository).buscar_produto_por_id(id)
+        result = ProdutoUseCase(repository).buscar_produto_por_nome(nome)
         return result
     
     @staticmethod

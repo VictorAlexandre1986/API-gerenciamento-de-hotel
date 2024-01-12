@@ -11,7 +11,7 @@ class ProdutoRepositoryInterface(ABC):
         raise Exception("Método não implementado")
     
     @abstractmethod
-    def buscar_produto_por_id(self, id: int):
+    def buscar_produto_por_nome(self, id: int):
         raise Exception("Método não implementado")
     
     @abstractmethod

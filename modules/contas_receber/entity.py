@@ -3,7 +3,7 @@ from datetime import datetime
 
 class ContasReceberEntity(BaseModel):
     id: int 
-    cliente: str = Field(..., min_length=2) | None
+    id_cliente:int | None
     valor: float = Field(...,decimal_places=2,max_digits=7)
     id_produto: int
     id_reserva: int

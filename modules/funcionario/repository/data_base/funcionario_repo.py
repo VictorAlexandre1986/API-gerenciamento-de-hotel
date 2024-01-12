@@ -38,7 +38,7 @@ class FuncionarioRepository(FuncionarioRepositoryInterface):
             if data_resultado is not None:
                 return data_resultado
 
-    def buscar_funcionario(self):
+    def buscar_funcionarios(self):
         with DBConnectionHandler() as db_connection:
             list_funcionarios = []
             funcionarios = db_connection.session.query(Funcionario).all()

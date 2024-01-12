@@ -7,9 +7,9 @@ from infra.db import Base
 class ContasReceber(Base):
     __tablename__ = "tb_contas_receber"
     
-    cliente = Column(String, nullable=False)
     valor = Column(Float, nullable=False)
     status = Column(String, nullable=False)
+    id_cliente = Column(String, ForeignKey('tb_cliente'))
     id_produto = Column(Integer, ForeignKey('tb_funcionario.id'))
     id_reserva = Column(Integer, ForeignKey('tb_reserva.id'))
     

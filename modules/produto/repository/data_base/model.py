@@ -11,8 +11,8 @@ class Produto(Base):
     
     nome = Column(String, nullable=False)
     categoria = Column(String, nullable=False)
-    custo_compra = Column(Float, nullable=False)
-    custo_venda = Column(Float, nullable=False)
+    preco_custo = Column(Float, nullable=False)
+    preco_venda = Column(Float, nullable=False)
     id_fornecedor = Column(Integer, ForeignKey('tb_fornecedor.id'))
     data_validade = Column(DateTime, nullable=False)
     contas_pagar = relationship(ContasPagar, back_populates='produto')

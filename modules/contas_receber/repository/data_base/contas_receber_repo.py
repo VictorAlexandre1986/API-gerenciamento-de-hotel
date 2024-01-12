@@ -11,16 +11,17 @@ class ContasReceberRepository(ContasReceberRepositoryInterface):
     def _criar_contas_receber_objeto(self, contas_receber):
         return ContasReceberEntity(
             id=contas_receber.id,
-            cliente=contas_receber.cliente,
+            id_cliente=contas_receber.id_cliente,
             valor=contas_receber.valor,
             id_reserva = contas_receber.id_reserva,
+            id_produto = contas_receber.id_produto,
             status = contas_receber.status
         )
 
-    def criar_contas_receber(self, id: int, cliente: str, id_reserva:int, valor:float, status:str):
+    def criar_contas_receber(self, id: int, id_cliente: str, id_reserva:int, id_produto:int, valor:float, status:str):
         try:
             with DBConnectionHandler() as db_connection:
-                novo_contas_receber = ContasReceber(id=id, cliente=cliente, id_reserva=id_reserva, valor=valor, status=status)
+                novo_contas_receber = ContasReceber(id=id, id_cliente=id_cliente, id_reserva=id_reserva, id_produto=id_produto, valor=valor, status=status)
                 db_connection.session.add(novo_contas_receber)
                 db_connection.session.commit()
                 return self._criar_contas_receber_objeto(novo_contas_receber)
@@ -44,13 +45,14 @@ class ContasReceberRepository(ContasReceberRepositoryInterface):
                 )
             return list_contas_receber
         
-    def atualizar_contas_receber(self, id: int, cliente: str, id_reserva: int, valor: float, status:str):
+    def atualizar_contas_receber(self, id: int, id_cliente: int, id_reserva: int, id_produto: int, valor: float, status:str):
         with DBConnectionHandler() as db_connection:
             data = db_connection.session.query(ContasReceber).filter(ContasReceber.id == id).one_or_none()
             if data:
                 data.id = id
-                data.cliente = cliente
+                data.id_cliente = id_cliente
                 data.id_reserva = id_reserva
+                data.id_produto = id_produto
                 data.valor = valor
                 data.status = status
                 db_connection.session.commit()

@@ -9,7 +9,7 @@ class ContasPagarUseCase:
     def criar_fornecedor(self, fornecedor:str, cnpj: str, contato: str):
         return self.fornecedor_repository.criar_fornecedor(id,fornecedor, cnpj,contato)
 
-    def buscar_contas_pagar_por_fornecedor(self, fornecedor: str):
+    def buscar_fornecedor_por_nome(self, fornecedor: str):
         return self.fornecedor_repository.buscar_por_fornecedor(fornecedor)
     
     def buscar_por_fornecedores(self):

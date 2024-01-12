@@ -1,5 +1,5 @@
 from modules.fornecedor.dto import FornecedorDTO
-from modules.fornecedor.repository.data_base.contas_pagar_repo import FornecedorRepository
+from modules.fornecedor.repository.data_base.fornecedor_repo import FornecedorRepository
 from modules.fornecedor.usecase import FornecedorUseCase
 
 
@@ -15,7 +15,7 @@ class FornecedorController:
     
     
     @staticmethod
-    def buscar_fornecedor(fornecedor: str):
+    def buscar_fornecedor_por_nome(fornecedor: str):
         repository = FornecedorRepository()
         result = FornecedorUseCase(repository).buscar_fornecedor(fornecedor)
         return result
