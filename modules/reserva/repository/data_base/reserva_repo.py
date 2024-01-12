@@ -35,6 +35,17 @@ class ReservaRepository(ReservaRepositoryInterface):
             data_resultado = self._criar_reserva_objeto(data)
             if data_resultado is not None:
                 return data_resultado
+    
+    def buscar_reserva_por_mes(self, inicio_mes:datetime, fim_mes:datetime):
+        with DBConnectionHandler() as db_connection:
+            list_reservas=[]
+            reservas = db_connection.session.query(Reserva).filter(Reserva.data_reserva.between(inicio_mes,fim_mes)).all()
+            for reserva in reservas:
+                list_reservas.append(
+                    self._criar_reserva_objeto(reserva)
+                )
+            return list_reservas
+            
 
     def buscar_reservas(self):
         with DBConnectionHandler() as db_connection:
