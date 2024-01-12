@@ -8,7 +8,7 @@ class Sexo(str, Enum):
 
 class ClienteDTO(BaseModel):
     id: int 
-    Nome:  str = Field(..., min_length=3)    
+    nome:  str = Field(..., min_length=3)    
     cpf: str
     dt_nasc : datetime
     sexo: Sexo
