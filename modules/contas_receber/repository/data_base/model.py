@@ -12,4 +12,5 @@ class ContasReceber(Base):
     id_cliente = Column(String, ForeignKey('tb_cliente'))
     id_produto = Column(Integer, ForeignKey('tb_funcionario.id'))
     id_reserva = Column(Integer, ForeignKey('tb_reserva.id'))
+    id_tipo_pagamento = Column(Integer, ForeignKey('tb_tipo_pagamento.id'))
     

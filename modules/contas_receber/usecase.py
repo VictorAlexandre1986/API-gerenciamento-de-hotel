@@ -20,4 +20,4 @@ class ContasReceberUseCase:
         return self.contas_receber_repository.deletar_contas_receber(id)
     
     def atualizar_contas_receber(self, id:int, id_cliente: int,  valor:float, status:str, id_produto:int, id_reserva:int):
-        return self.contas_pagar_repository.atualizar_contas_pagar(id, id_cliente,  valor, status, id_produto, id_reserva)
+        return self.contas_receber_repository.atualizar_contas_receber(id, id_cliente,  valor, status, id_produto, id_reserva)

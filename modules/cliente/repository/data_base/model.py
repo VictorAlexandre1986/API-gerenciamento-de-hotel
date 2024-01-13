@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from modules.salario.repository.data_base.model import Salario
-from modules.cargo.repository.data_base.model import Cargo
 
 from infra.db import Base
 
@@ -17,6 +16,8 @@ class Cliente(Base):
     cidade= Column(String, nullable=False)
     estado= Column(String, nullable=False)
     contato= Column(String, nullable=False)
+
+
 
     
     
