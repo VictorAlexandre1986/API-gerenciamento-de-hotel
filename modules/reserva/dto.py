@@ -4,7 +4,7 @@ from datetime import datetime
 class ReservaDTO(BaseModel):
     id: int 
     id_cliente: int   
-    qts_quartos: int
+    id_quarto: int
     qts_dias : int
     data_reserva: datetime 
     preco: float = Field(...,decimal_places=2)

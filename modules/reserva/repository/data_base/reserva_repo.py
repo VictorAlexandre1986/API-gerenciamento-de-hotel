@@ -13,16 +13,16 @@ class ReservaRepository(ReservaRepositoryInterface):
             id=reserva.id,
             # uuid=login.uuid,
             id_cliente=reserva.id_cliente,
-            qts_quartos=reserva.qts_quartos,
+            num_quarto=reserva.qts_quarto,
             qts_dias=reserva.qts_dias,
             data_reserva=reserva.data_reserva,
             preco = reserva.preco,
         )
 
-    def criar_reserva(self, id: int, id_cliente: int, qts_quartos:int, qts_dias: int, data_reserva: datetime, preco:float):
+    def criar_reserva(self, id: int, id_cliente: int, num_quarto:int, qts_dias: int, data_reserva: datetime, preco:float):
         try:
             with DBConnectionHandler() as db_connection:
-                novo_salario = Reserva(id=id, id_cliente=id_cliente, qts_quartos=qts_quartos, qts_dias=qts_dias, data_reserva=data_reserva, preco=preco)
+                novo_salario = Reserva(id=id, id_cliente=id_cliente, num_quarto=num_quarto, qts_dias=qts_dias, data_reserva=data_reserva, preco=preco)
                 db_connection.session.add(novo_salario)
                 db_connection.session.commit()
                 return self._criar_reserva_objeto(novo_salario)
@@ -36,10 +36,20 @@ class ReservaRepository(ReservaRepositoryInterface):
             if data_resultado is not None:
                 return data_resultado
     
-    def buscar_reserva_por_mes(self, inicio_mes:datetime, fim_mes:datetime):
+    def buscar_reserva_por_data(self, inicio_mes:datetime, fim_mes:datetime):
         with DBConnectionHandler() as db_connection:
             list_reservas=[]
             reservas = db_connection.session.query(Reserva).filter(Reserva.data_reserva.between(inicio_mes,fim_mes)).all()
+            for reserva in reservas:
+                list_reservas.append(
+                    self._criar_reserva_objeto(reserva)
+                )
+            return list_reservas
+    
+    def buscar_reserva_disponivel(self, disponivel: bool):
+        with DBConnectionHandler() as db_connection:
+            list_reservas=[]
+            reservas = db_connection.session.query(Reserva).filter(Reserva.disponivel(disponivel=disponivel)).all()
             for reserva in reservas:
                 list_reservas.append(
                     self._criar_reserva_objeto(reserva)
@@ -57,13 +67,13 @@ class ReservaRepository(ReservaRepositoryInterface):
                 )
             return list_reservas
         
-    def atualizar_reserva(self, id: int, id_cliente: int, qts_quartos:int, qts_dias: int, data_reserva: datetime, preco:float):
+    def atualizar_reserva(self, id: int, id_cliente: int, id_quarto:int, qts_dias: int, data_reserva: datetime, preco:float):
         with DBConnectionHandler() as db_connection:
             data = db_connection.session.query(Reserva).filter(Reserva.id == id).one_or_none()
             if data:
                 data.id = id
                 data.id_cliente = id_cliente
-                data.qts_quartos = qts_quartos
+                data.id_quarto = id_quarto
                 data.qts_dias = qts_dias
                 data.data_reserva = data_reserva
                 data.preco = preco

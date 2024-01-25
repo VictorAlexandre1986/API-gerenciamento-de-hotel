@@ -5,18 +5,18 @@ from flask import Response, request
 from flask_restx import Namespace, Resource
 from pydantic import ValidationError
 
-from modules.login.controller import ReservaController
+from modules.cargo.controller import CargoController
 
-api_atualizar_reserva = Namespace("reserva", description="Endpoint atualizar reserva")
+api_atualizar_cargo = Namespace("Cargo", description="Endpoint atualizar cargo")
 
 
-@api_atualizar_reserva.route("/<int:id>", methods=["PATCH", "PUT"])
-class AtualizarReserva(Resource):
+@api_atualizar_cargo.route("/<int:id>", methods=["PATCH", "PUT"])
+class AtualizarCargo(Resource):
 
     def patch(self, id: int):
-        data = api_atualizar_reserva.payload
+        data = api_atualizar_cargo.payload
         try:
-            response = ReservaController.atualizar_reserva(data,id)
+            response = CargoController.atualizar_cargo(data,id)
             return Response(
                 response.json(),
                 mimetype="application/json",

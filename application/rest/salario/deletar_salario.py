@@ -5,26 +5,24 @@ from flask import Response, request
 from flask_restx import Namespace, Resource
 from pydantic import ValidationError
 
-from modules.login.controller import ReservaController
+from modules.salario.controller import SalarioController
 
-api_atualizar_reserva = Namespace("reserva", description="Endpoint atualizar reserva")
+api_deletar_salario = Namespace("salario", description="Endpoint deletar salario")
 
 
-@api_atualizar_reserva.route("/<int:id>", methods=["PATCH", "PUT"])
-class AtualizarReserva(Resource):
+@api_deletar_salario.route("/<int:id>", methods=["DELETE"])
+class DeletarSalario(Resource):
 
-    def patch(self, id: int):
-        data = api_atualizar_reserva.payload
+    def delete(self, id: int):
         try:
-            response = ReservaController.atualizar_reserva(data,id)
+            SalarioController.deletar_salario(id)
             return Response(
-                response.json(),
+                json.dumps({"msg": "Excluído com sucesso."}),
                 mimetype="application/json",
                 status=200,
             )
 
         except ValidationError as exc:
-            print(exc)
             return Response(
                 exc.json(),
                 mimetype="application/json",
@@ -39,10 +37,10 @@ class AtualizarReserva(Resource):
                 status=HTTPStatus.BAD_REQUEST
             )
 
+
         except Exception as exc:
             return Response(
                 json.dumps({"msg": 'Bad request'}),
                 mimetype="application/json",
                 status=HTTPStatus.BAD_REQUEST
             )
-        

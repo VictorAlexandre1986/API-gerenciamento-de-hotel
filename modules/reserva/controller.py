@@ -10,7 +10,7 @@ class ReservaController:
     def criar_reserva(data: dict):
         data_dto = ReservaDTO(**data)
         repository = ReservaRepository()
-        result = ReservaUseCase(repository).criar_reserva(id = data_dto.id, id_cliente = data_dto.id_cliente, qts_quartos= data_dto.qts_quartos, qts_dias= data_dto.qts_dias, preco=data_dto.preco, data_reserva = data_dto.data_reserva)
+        result = ReservaUseCase(repository).criar_reserva(id = data_dto.id, id_cliente = data_dto.id_cliente, id_quarto= data_dto.id_quarto, qts_dias= data_dto.qts_dias, preco=data_dto.preco, data_reserva = data_dto.data_reserva)
         return result
     
     @staticmethod
@@ -20,9 +20,17 @@ class ReservaController:
         return result
     
     @staticmethod
-    def buscar_reserva_por_mes(mes: str):
+    def buscar_reserva_por_data(data: str):
         repository = ReservaRepository()
-        result = ReservaUseCase(repository).buscar_reserva_por_mes(mes)
+        result = ReservaUseCase(repository).buscar_reserva_por_data(data)
+        result = [reserva.dict() for reserva in result]
+        return result
+
+    @staticmethod
+    def buscar_reserva_disponivel(disponivel: bool):
+        repository = ReservaRepository()
+        result = ReservaUseCase(repository).buscar_reserva_disponivel(disponivel)
+        result = [reserva.dict() for reserva in result]
         return result
     
     @staticmethod
@@ -36,7 +44,7 @@ class ReservaController:
     def atualizar_reserva(data: dict, id: int):
         data_dto = ReservaDTO(**data)
         repository = ReservaRepository()
-        result = ReservaUseCase(repository).atualizar_reserva(id=id, id_cliente = data_dto.id_cliente, qts_quartos=  data_dto.qts_quartos, qts_dias= data_dto.qts_dias, preco=data_dto.preco, data_reserva= data_dto.data_reserva)
+        result = ReservaUseCase(repository).atualizar_reserva(id=id, id_cliente = data_dto.id_cliente, id_quarto=  data_dto.id_quarto, qts_dias= data_dto.qts_dias, preco=data_dto.preco, data_reserva= data_dto.data_reserva)
         return result
     
     @staticmethod

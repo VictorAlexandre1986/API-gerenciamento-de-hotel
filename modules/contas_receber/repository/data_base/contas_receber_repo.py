@@ -1,7 +1,13 @@
 from infra.db.db_config import DBConnectionHandler
 from modules.contas_receber.repository.data_base.interface import ContasReceberRepositoryInterface
 from modules.contas_receber.repository.data_base.model import ContasReceber
+from modules.cliente_compra_produto.repository.data_base.model import ClienteCompraProduto
+from modules.reserva.repository.data_base.model import Reserva
+from modules.produto.repository.data_base.model import Produto
 from modules.contas_receber.entity import ContasReceberEntity
+from modules.cliente_compra_produto.entity import ClienteCompraProdutoEntity
+from modules.reserva.entity import EntityPrecoReserva
+from modules.produto.entity import ProdutoPrecoEntity
 from datetime import datetime
 import uuid as uuid
 
@@ -21,6 +27,20 @@ class ContasReceberRepository(ContasReceberRepositoryInterface):
     def criar_contas_receber(self, id: int, id_cliente: str, id_reserva:int, id_produto:int, valor:float, status:str):
         try:
             with DBConnectionHandler() as db_connection:
+                #Pegando o preco da reserva
+                reserva = db_connection.session.query(Reserva).filter(Reserva.id == id).one_or_none()
+                valor_reserva = EntityPrecoReserva(**reserva)
+               
+                #Pegando os produtos que o cliente pegou
+                list_produtos = []
+                cliente_compra_produtos = db_connection.session.query(ClienteCompraProduto).all()
+                for cliente_compra_produto in cliente_compra_produtos:
+                    list_produtos.append(
+                        self.ClienteCompraProdutoEntity(cliente_compra_produto)
+                    )
+                    
+                    
+                    
                 novo_contas_receber = ContasReceber(id=id, id_cliente=id_cliente, id_reserva=id_reserva, id_produto=id_produto, valor=valor, status=status)
                 db_connection.session.add(novo_contas_receber)
                 db_connection.session.commit()

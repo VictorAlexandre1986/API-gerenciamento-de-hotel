@@ -5,17 +5,16 @@ from flask import Response
 from flask_restx import Namespace, Resource
 from pydantic import ValidationError
 
-from modules.produto.controller import ProdutoController
+from modules.cargo.controller import CargoController
 
-api_buscar_produto = Namespace("produto", description="Endpoint buscar produto")
+api_buscar_cargo = Namespace("Cargo", description="Endpoint buscar cargo")
 
+@api_buscar_cargo.route("/<cargo:str>", methods=["GET"])
+class BuscarCargoPorNome(Resource):
 
-@api_buscar_produto.route("/<str:nome>", methods=["GET"])
-class BuscarProdutoPorNome(Resource):
-
-    def get(self, id: int):
+    def get(self, cargo: str):
         try:
-            response = ProdutoController.buscar_produto_por_nome(id)
+            response = CargoController.buscar_cargo_por_nome(cargo)
             return Response(
                 response.json(),
                 mimetype="application/json",
@@ -44,14 +43,13 @@ class BuscarProdutoPorNome(Resource):
                 mimetype="application/json",
                 status=HTTPStatus.BAD_REQUEST
             )
-            
 
-@api_buscar_produto.route("/", methods=["GET"])
-class BuscarProdutos(Resource):
+@api_buscar_cargo.route("/", methods=["GET"])
+class BuscarCargos(Resource):
 
     def get(self):
         try:
-            response = ProdutoController.buscar_produtos()
+            response = CargoController.buscar_cargos()
             return Response(
                 json.dumps(response),
                 mimetype="application/json",

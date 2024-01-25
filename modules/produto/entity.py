@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
 
-class ProdutoDTO(BaseModel):
+class ProdutoEntity(BaseModel):
     id: int 
     nome: str = Field(..., min_length=2) 
     categoria: str = Field(...,min_length=3) 
@@ -9,3 +9,4 @@ class ProdutoDTO(BaseModel):
     preco_venda:float =  Field(..., decimal_places=2)
     id_fornecedor: int
     data_validade : datetime
+    

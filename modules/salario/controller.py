@@ -14,9 +14,21 @@ class SalarioController:
         return result
     
     @staticmethod
-    def buscar_salario_por_id(id: int):
+    def buscar_salario_por_status(pago: bool):
         repository = SalarioRepository()
-        result = SalarioUseCase(repository).buscar_salario_por_id(id)
+        result = SalarioUseCase(repository).buscar_salarios_por_status(pago)
+        return result
+
+    @staticmethod
+    def buscar_vale_refeicao_por_status(vale_refeicao: bool):
+        repository = SalarioRepository()
+        result = SalarioUseCase(repository).buscar_vale_refeicao_por_status(vale_refeicao)
+        return result
+    
+    @staticmethod
+    def buscar_auxilio_medico_por_status(auxilio_medico: bool):
+        repository = SalarioRepository()
+        result = SalarioUseCase(repository).buscar_auxilio_medico_por_status(auxilio_medico)
         return result
     
     @staticmethod

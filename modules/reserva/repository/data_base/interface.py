@@ -16,7 +16,11 @@ class ReservaRepositoryInterface(ABC):
         raise Exception("Método não implementado")
     
     @abstractmethod
-    def buscar_reserva_por_mes(self, mes: datetime):
+    def buscar_reserva_por_data(self, data: datetime):
+        raise Exception("Método não implementado")
+
+    @abstractmethod
+    def buscar_reserva_disponivel(self, disponivel: bool):
         raise Exception("Método não implementado")
     
     @abstractmethod
