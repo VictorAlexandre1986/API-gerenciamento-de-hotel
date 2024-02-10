@@ -5,18 +5,18 @@ from flask import Response, request
 from flask_restx import Namespace, Resource
 from pydantic import ValidationError
 
-from modules.contas_receber.controller import ContasReceberController
+from modules.cliente_compra_produto.controller import ClienteCompraProdutoController
 
-api_atualizar_contas_receber = Namespace("ContasReceber", description="Endpoint atualizar contas a receber")
+api_criar_cliente_compra_produto = Namespace("ClienteCompraProduto", description="Endpoint criar cliente compra produto")
 
 
-@api_atualizar_contas_receber.route("/<int:id>", methods=["PATCH", "PUT"])
-class AtualizarContasReceber(Resource):
+@api_criar_cliente_compra_produto.route("/", methods=["POST"])
+class CriarClienteCompraProduto(Resource):
 
-    def patch(self, id: int):
-        data = api_atualizar_contas_receber.payload
+    def post(self):
+        data = api_criar_cliente_compra_produto.payload
         try:
-            response = ContasReceberController.atualizar_contas_receber(data,id)
+            response = ClienteCompraProdutoController.criar_cliente_compra_produto(data)
             return Response(
                 response.json(),
                 mimetype="application/json",
@@ -24,13 +24,12 @@ class AtualizarContasReceber(Resource):
             )
 
         except ValidationError as exc:
-            print(exc)
             return Response(
                 exc.json(),
                 mimetype="application/json",
                 status=HTTPStatus.BAD_REQUEST
             )
-
+            
 
         except ValueError as exc:
             return Response(
@@ -45,4 +44,3 @@ class AtualizarContasReceber(Resource):
                 mimetype="application/json",
                 status=HTTPStatus.BAD_REQUEST
             )
-        

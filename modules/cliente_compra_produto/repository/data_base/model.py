@@ -9,4 +9,6 @@ class ClienteCompraProduto(Base):
     
     id_cliente = Column(String, ForeignKey('tb_cliente'))
     id_produto = Column(Integer, ForeignKey('tb_funcionario.id'))
+    id_reserva = Column(Integer, ForeignKey('tb_reserva.id'))
+    data = Column(DateTime, nullable=False)
     qtd = Column(Integer, nullable=False)

@@ -12,7 +12,7 @@ class ClienteCompraProdutoRepositoryInterface(ABC):
         raise Exception("Método não implementado")
     
     @abstractmethod
-    def buscar_cliente_compra_produto_por_id_cliente(self, mes: datetime):
+    def buscar_cliente_compra_produto_por_id_cliente(self, id: int):
         raise Exception("Método não implementado")
 
     @abstractmethod

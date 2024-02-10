@@ -4,13 +4,13 @@ from modules.cliente_compra_produto.usecase import ClienteCompraProdutoUseCase
 
 
 
-class ProdutoController:
+class ClienteCompraProdutoController:
 
     @staticmethod
-    def criar_produto(data: dict):
+    def criar_cliente_compra_produto(data: dict):
         data_dto = ClienteCompraProdutoDTO(**data)
         repository = ClienteCompraProdutoRepository()
-        result = ClienteCompraProdutoUseCase(repository).criar_cliente_compra_produto(id = data_dto.id, id_cliente = data_dto.id_cliente, id_produto = data_dto.id_produto, qtd=data_dto.qtd)
+        result = ClienteCompraProdutoUseCase(repository).criar_cliente_compra_produto(id = data_dto.id, id_cliente = data_dto.id_cliente, id_produto = data_dto.id_produto,id_reserva = data_dto.id_reserva, data = data_dto.data, qtd=data_dto.qtd)
         return result
     
     @staticmethod
@@ -27,14 +27,14 @@ class ProdutoController:
         return result
     
     @staticmethod
-    def atualizar_produto(data: dict, id: int):
+    def atualizar_cliente_compra_produto(data: dict, id: int):
         data_dto = ClienteCompraProdutoDTO(**data)
         repository = ClienteCompraProdutoRepository()
-        result = ClienteCompraProdutoUseCase(repository).atualizar_cliente_compra_produto(id=id, id_cliente = data_dto.id_cliente, id_produto = data_dto.id_produto, qtd = data_dto.qtd)
+        result = ClienteCompraProdutoUseCase(repository).atualizar_cliente_compra_produto(id=id, id_cliente = data_dto.id_cliente, id_produto = data_dto.id_produto, id_reserva=data_dto.id_reserva, data = data_dto.data, qtd = data_dto.qtd)
         return result
     
     @staticmethod
-    def deletar_produto(id: int):
+    def deletar_cliente_compra_produto(id: int):
         repository = ClienteCompraProdutoRepository()
         result = ClienteCompraProdutoUseCase(repository).deletar_cliente_compra_produto(id)
         return result

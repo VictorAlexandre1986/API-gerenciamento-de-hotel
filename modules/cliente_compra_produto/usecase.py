@@ -6,8 +6,9 @@ class ClienteCompraProdutoUseCase:
         self.cliete_compra_produto_repository = cliete_compra_produto_repository
         
     
-    def criar_compra_produto(self, id_cliente:int,  id_produto, qtd: int):
-        return self.cliente_compra_produto_repository.criar_cliente_compra_produto(id, id_cliente,id_produto,qtd)
+    def criar_compra_produto(self, id_cliente:int,  id_produto: int, id_reserva: int, data: str, qtd: int):
+        #Converter data para datetime
+        return self.cliente_compra_produto_repository.criar_cliente_compra_produto(id, id_cliente, id_produto, id_reserva, data, qtd)
     
     def buscar_cliente_compra_produto_por_id_cliente(self, id_cliente: int):
         return self.cliente_compra_produto_repository.buscar_cliente_compra_produto_por_id_cliente(id_cliente)
@@ -18,5 +19,6 @@ class ClienteCompraProdutoUseCase:
     def deletar_cliente_compra_produto(self, id: int):
         return self.cliente_compra_produto_repository.deletar_cliente_compra_produto(id)
     
-    def atualizar_cliente_compra_produto(self, id:int, id_cliente: int,  id_produto:int, qtd: int):
-        return self.cliente_compra_produto_repository.atualizar_cliente_compra_produto(id, id_cliente, id_produto, qtd)
+    def atualizar_cliente_compra_produto(self, id:int, id_cliente: int,  id_produto:int, id_reserva: int, data:str, qtd: int):
+        #Converter data para datetime
+        return self.cliente_compra_produto_repository.atualizar_cliente_compra_produto(id, id_cliente, id_produto, id_reserva, data, qtd)

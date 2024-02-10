@@ -5,18 +5,18 @@ from flask import Response, request
 from flask_restx import Namespace, Resource
 from pydantic import ValidationError
 
-from modules.contas_receber.controller import ContasReceberController
+from modules.cliente_compra_produto.controller import ClienteCompraProdutoController
 
-api_atualizar_contas_receber = Namespace("ContasReceber", description="Endpoint atualizar contas a receber")
+api_atualizar_cliente_compra_produto = Namespace("ClienteCompraProduto", description="Endpoint atualizar cliente compra produto")
 
 
-@api_atualizar_contas_receber.route("/<int:id>", methods=["PATCH", "PUT"])
-class AtualizarContasReceber(Resource):
+@api_atualizar_cliente_compra_produto.route("/<int:id>", methods=["PATCH", "PUT"])
+class AtualizarClienteCompraProduto(Resource):
 
     def patch(self, id: int):
-        data = api_atualizar_contas_receber.payload
+        data = api_atualizar_cliente_compra_produto.payload
         try:
-            response = ContasReceberController.atualizar_contas_receber(data,id)
+            response = ClienteCompraProdutoController.atualizar_cliente_compra_produto(data,id)
             return Response(
                 response.json(),
                 mimetype="application/json",
